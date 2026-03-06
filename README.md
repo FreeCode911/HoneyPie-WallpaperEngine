@@ -1,75 +1,67 @@
-# HoneyPie Wallpaper Engine
+<div align="center">
+  <img src="honeypie.ico" width="128" height="128" alt="HoneyPie Logo">
+  <h1>🍯 HoneyPie Wallpaper Engine</h1>
+  <p><b>An ultra-lightweight, zero-bloat, hardware-accelerated video wallpaper engine for Windows.</b></p>
+  
+  [![Platform](https://img.shields.io/badge/Platform-Windows_10%20%7C%2011-blue.svg)](#)
+  [![Framework](https://img.shields.io/badge/.NET-6.0-purple.svg)](#)
+  [![License](https://img.shields.io/badge/License-MIT-green.svg)](#)
+</div>
 
-A lightweight video wallpaper engine for Windows that allows you to set videos as your desktop background.
+<br/>
 
-## About
+HoneyPie is designed specifically for **low-end PCs and laptops**. Unlike heavy Electron-based or web-rendered wallpaper engines, HoneyPie acts purely as a tray application that directly hooks into the Windows `WorkerW` desktop layer, decoding videos entirely on your GPU.
 
-This is my first programming project using C, created by AloNeXe. I wanted to make something useful and fun, so I created HoneyPie - a simple but effective wallpaper engine that lets you use videos as your desktop background. While there are other wallpaper engines out there, I wanted to create something lightweight and easy to use. And this inspired by 
-@SeanOnTheRoad(SeanWayStudio)
+## ✨ Key Features
 
+*   🚀 **True Hardware Acceleration**: Built on `LibVLCSharp` with aggressive flags (`--hw-dec=auto`) to force 100% GPU video decoding.
+*   🛑 **Smart Auto-Pause**: Automatically detects when you maximize a window (e.g., playing a video game or watching a movie) and **pauses the wallpaper, dropping resource usage to 0%**.
+*   🧹 **Zero Memory Leaks**: Strictly implements the `IDisposable` pattern and COM cleanup, ensuring flat RAM usage no matter how long it runs.
+*   🪶 **No UI Bloat**: HoneyPie runs entirely from your System Tray. There are no rendered graphical interfaces wasting your system's layout engine.
 
-The name "HoneyPie" comes from my love for simple and sweet solutions. Just like honey, this app aims to make your desktop experience smoother and more enjoyable.
+## 💻 System Requirements
 
-## Features
+*   **OS:** Windows 10 or Windows 11
+*   **Runtime:** [.NET 6.0 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/6.0)
+*   **VLC:** [VLC Media Player](https://www.videolan.org/vlc/) (Must be installed on the system)
 
-- Set any video as your desktop wallpaper
-- Seamless video looping
-- Minimizes to system tray
-- Remembers last played video
-- Auto-play on startup
-- Supports common video formats (MP4, MKV, AVI)
+## 🛠️ Installation & Build
 
-## Installation
+If you want to compile HoneyPie from source:
 
-1. Download the latest release
-2. Extract the ZIP file to your preferred location
-3. Run `HoneyPie.exe`
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/chenura999/HoneyPie-WallpaperEngine.git
+   cd HoneyPie-WallpaperEngine
+   ```
+2. Build the executable using the .NET CLI:
+   ```bash
+   dotnet build -c Release
+   ```
+3. Run the compiled `.exe` located in `bin/Release/net6.0-windows10.0.19041.0/`.
 
-No installation required - the application is portable and self-contained.
+## 🎮 Usage
 
-## Usage
+1. Launch **HoneyPie**. It will immediately hide into your System Tray (bottom right of your taskbar).
+2. Right-click the 🍯 HoneyPie icon.
+3. Click **Select Video** and choose an `.mp4`, `.mkv`, or `.avi` file.
+4. The video will seamlessly loop on your desktop!
+   * *Tip: For the absolute best performance on old PCs, use `1080p H.264 (.mp4)` files!*
 
-1. Launch HoneyPie.exe
-2. Click "Browse Video" to select your video file
-3. The video will automatically start playing as your wallpaper
-4. Use the controls to:
-   - Pause/Resume playback
-   - Stop playback
-   - Mute/Unmute audio
-   - Minimize to system tray
+## 🧪 Testing & Debugging
 
-When minimized, the application will continue running in the system tray. You can:
-- Double-click the tray icon to restore the window
-- Right-click the tray icon for additional options
+Because HoneyPie heavily relies on Windows-specific COM Interop (`user32.dll`) and VLC native libraries, automated testing is handled through manual validation workflows. 
 
-## System Requirements
+### How to Test Changes
+If you contribute to HoneyPie, please verify the following before submitting a Pull Request:
+1. **Memory Leak Test:** Open Task Manager. Change the video 10 times via the tray icon. Ensure the "Private Working Set" RAM usage does not permanently increment.
+2. **Auto-Pause Test:** With a video playing on the desktop, open Google Chrome and press `F11` to maximize it. Check Task Manager to verify that HoneyPie's GPU usage drops to exactly `0%`.
+3. **Graceful Exit:** Right-click the tray icon and press `Exit`. Verify the wallpaper returns to normal, the icon disappears, and the `HoneyPie.exe` process fully terminates.
 
-- Windows 10 or later
-- DirectX 11 capable graphics card
-- 4GB RAM recommended
+## 🤝 Contributing
 
-## Notes
+Contributions are heavily encouraged! If you have an idea for optimization or a new feature (like multi-monitor support), please open an Issue or submit a Pull Request.
 
-- The application saves its settings in a `settings.json` file in the same directory as the executable
-- To completely exit the application, use the "Exit" option in the tray icon menu
-- For best performance, use MP4 files with H.264 encoding
+## 📝 License
 
-## Troubleshooting
-
-If the video doesn't play:
-1. Make sure the video file format is supported
-2. Check if you have the latest video codecs installed
-3. Try converting the video to MP4 format with H.264 encoding
-
-If the application crashes:
-1. Make sure you have the latest Windows updates installed
-2. Check if your graphics drivers are up to date
-3. Try running the application as administrator
-
-##Download
-
---->https://drive.google.com/drive/folders/1SCZKHr1oAaF3zMuxtjZXTl52IYTuN_sW?usp=drive_link<--
-
-## License
-
-MIT License 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

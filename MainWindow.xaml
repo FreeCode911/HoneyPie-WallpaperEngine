@@ -1,0 +1,9 @@
+<Window x:Class="HoneyPie.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="HoneyPie Wallpaper Engine" Height="0" Width="0"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ShowInTaskbar="False" Visibility="Hidden"
+        Closing="Window_Closing">
+    <!-- Pure Tray Application - No UI Elements -->
+</Window>
